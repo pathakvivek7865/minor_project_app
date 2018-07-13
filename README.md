@@ -1,6 +1,6 @@
 # touristguide
 
-A new Flutter project.
+A  minor project app of touristguid.
 
 ## Getting Started
 
