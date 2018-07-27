@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'profile.dart';
-import "login.dart";
+import 'pages/profile.dart';
+import "pages/home/home.dart";
 
 void main() => runApp(new MyApp());
 
@@ -60,13 +60,13 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.push(
                 context,
                  new MaterialPageRoute(
-                   builder: (context) => new Login()
+                   builder: (context) => new Home()
                  )
                  
               );
 
             },
-            icon: new Icon(Icons.person),
+            icon: new Icon(Icons.home),
           )
         ],
       ),
