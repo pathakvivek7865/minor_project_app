@@ -9,15 +9,18 @@ part of 'place.dart';
 Place _$PlaceFromJson(Map<String, dynamic> json) => new Place(
     json['name'] as String,
     json['address'] as String,
-    json['preferedActivities'] as String);
+    json['preferedActivities'] as String,
+    json['description']);
 
 abstract class _$PlaceSerializerMixin {
   String get name;
   String get address;
+  dynamic get description;
   String get preferedActivities;
   Map<String, dynamic> toJson() => <String, dynamic>{
         'name': name,
         'address': address,
+        'description': description,
         'preferedActivities': preferedActivities
       };
 }

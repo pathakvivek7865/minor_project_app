@@ -59,7 +59,7 @@ class PeopleCardViewState extends State<PlaceCardView> {
 
   Widget _buildPlaceList() {
     return new ListView.builder(
-      padding: const EdgeInsets.all(5.0),
+     // padding: const EdgeInsets.all(5.0),
       itemCount: _place.length != null ? _place.length : 0,
       itemBuilder: (context, index) {
         return new FlatButton(
@@ -112,10 +112,7 @@ class PeopleCardViewState extends State<PlaceCardView> {
               // make buttons use the appropriate styles for cards
               child: new ButtonBar(
                 children: <Widget>[
-                  new FlatButton(
-                    child: const Text('BUY TICKETS'),
-                    onPressed: () {/* ... */},
-                  ),
+                 
                   new FlatButton(
                     child: const Text('More>>'),
                     onPressed: () {/* ... */},
