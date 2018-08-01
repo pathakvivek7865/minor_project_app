@@ -1,29 +1,44 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+//import 'package:flutter/services.dart';
+
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class Test extends StatefulWidget {
+  // Test({Key key, this.title}) : super(key: key);
+  //final String title;
+
   @override
   _TestState createState() => new _TestState();
-  getMyF(){
-    _TestState test = _TestState();
-   test._fetchData();
-    return test._tst['name'];
-  }
 }
 
 class _TestState extends State<Test> {
   var _tst;
+  var _username;
+  var _password;
+  var _loginStatus;
 
-  _fetchData() async {
-    String username = 'beingbivek@gmail.com';
-    String password = 'bivek';
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<Null> _fetchData() async {
+    setState(() {
+      _tst = null;
+      _loginStatus = null;
+    });
+
+    String username = _username;
+    String password = _password;
     String basicAuth =
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     //print(basicAuth);
 
-    final url = "http://10.0.2.2:8090/tourists/1";
+    final url = "http://192.168.100.4:8090/tourists/3";
     try {
       final response = await http.get(url, headers: {
         HttpHeaders.AUTHORIZATION: basicAuth,
@@ -36,48 +51,84 @@ class _TestState extends State<Test> {
 
         setState(() {
           this._tst = responseJson;
+
+          this._loginStatus = "Successifully Logged In";
         });
         //print(_tst);
-        //print(responseJson);
+        print(responseJson);
       } else {
-        // _tst = 'Error getting response:\nHttp status ${response.statusCode}';
+        print(response.body);
+        setState(() {
+          this._loginStatus =
+              'Error getting response:\nHttp status ${response.body}';
+        });
       }
 
       //print(map["List"]);
 
     } catch (exception) {
       setState(() {
-        // this._tst = "Failed parsing response because of: $exception";
+        this._loginStatus = "Failed parsing response because of: $exception";
       });
     }
   }
 
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchData();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Login Test"),
-      ),
-      body: Column(children: <Widget>[
-        new Container(
-          child: new Column(
-            children: <Widget>[
-              new Text(_tst['id'].toString()),
-              new Text(_tst['name']),
-              new Text(_tst['status'].toString()),
-              new Text(_tst['address'][0]['country'].toString()),
+    // final key = new GlobalKey<ScaffoldState>();
 
-            ],
-          ),
-        )
-      ]),
-    );
+    return new Scaffold(
+        // key: key,
+        appBar: new AppBar(
+          title: new Text("Login Test"),
+        ),
+        body: new Center(
+            child: new ListView(
+          children: <Widget>[
+            new Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                new Container(
+                  child: new TextField(
+                    decoration: new InputDecoration(hintText: "Email"),
+                    onChanged: (String string) {
+                      _username = string;
+                    },
+                  ),
+                  margin: const EdgeInsets.all(40.0),
+                ),
+                new Container(
+                  child: new TextField(
+                    decoration: new InputDecoration(hintText: "password"),
+                    onChanged: (String string) {
+                      _password = string;
+                    },
+                  ),
+                  margin: const EdgeInsets.all(40.0),
+                ),
+                new RaisedButton(
+                  child: new Text("LOGIN"),
+                  onPressed: _fetchData,
+                ),
+                new Container(
+                  padding: const EdgeInsets.all(20.0),
+                  child: new Column(
+                    children: <Widget>[
+                      new Text(_tst != null ? _tst['id'].toString() : ""),
+                      new Text(_tst != null ? _tst['name'] : ""),
+                      new Text(_tst != null ? _tst['status'].toString() : ""),
+                      new Text(
+                        _loginStatus != null ? _loginStatus : "",
+                        style: new TextStyle(
+                            fontSize: 20.0, color: Colors.blueAccent),
+                      ),
+                      // new Text( _tst['address'].length()  <0 ? "" : _tst['address'][0]['country'].toString()),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        )));
   }
 }

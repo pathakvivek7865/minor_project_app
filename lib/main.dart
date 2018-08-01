@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     //print(basicAuth);
 
-    final url = "http://10.0.2.2:8090/tourists/1";
+    final url = "http://192.168.100.4:8090/tourists/1";
     try {
       final response = await http.get(url, headers: {
         HttpHeaders.AUTHORIZATION: basicAuth,
@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: new ListView(
           children: <Widget>[
             new UserAccountsDrawerHeader(
-              accountName: new Text(_tst['name'],style: new TextStyle(fontSize: 18.0),),
+              accountName: new Text(_tst != null ?_tst['name'] : "Unknown",style: new TextStyle(fontSize: 18.0),),
               accountEmail: new Text(_tst['contacts'][0]['email'].toString()),
               currentAccountPicture: new GestureDetector(
                 onTap: () {
@@ -97,14 +97,20 @@ class _MyHomePageState extends State<MyHomePage> {
                       gravity: ToastGravity.CENTER,
                       timeInSecForIos: 1);
                 },
-               /*  child: new CircleAvatar(
-                  backgroundImage: new NetworkImage("https://bit.ly/2M41eqZ"),
-                ), */
+                child: new CircleAvatar(
+                  backgroundColor: Colors.red,
+                  // backgroundImage: new NetworkImage("https://bit.ly/2M41eqZ"),
+                ),
               ),
               decoration: new BoxDecoration(
-                  image: new DecorationImage(
+                color: Colors.limeAccent,
+                  /* image: new DecorationImage(
                       fit: BoxFit.fill,
-                      image: new NetworkImage("https://bit.ly/2M8PmUk"))),
+                      image: new NetworkImage("https://bit.ly/2M8PmUk")) */),
+            ),
+             new ListTile(
+              title: new Text("Profile"),
+              trailing: new Icon(Icons.border_right),
             ),
             new ListTile(
               title: new Text("Favorites"),

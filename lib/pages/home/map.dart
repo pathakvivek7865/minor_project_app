@@ -13,7 +13,7 @@ class PlaceMap extends StatefulWidget{
 
 class _PlaceMapState extends State<PlaceMap>{
 
-   LocationResult locations = null;
+   LocationResult locations ;
   StreamSubscription<LocationResult> streamSubscription;
   bool trackLocation = false;
 
