@@ -8,12 +8,9 @@ class Profile extends StatefulWidget{
 class _ProfileState extends State<Profile>{
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-        accentColor: const Color(0xFFF850DD),
-      ),
-      home: new Text("vivek"),
+    return Scaffold(
+    
+
     );
   }
 }
