@@ -6,6 +6,8 @@ import 'pages/profile.dart';
 import './pages/home/home.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:touristguide/pages/login.dart';
+// import 'package:material_search/material_search.dart';
+import 'package:touristguide/pages/home/search/search.dart';
 import 'package:http/http.dart' as http;
 
 void main() => runApp(new MyApp());
@@ -36,7 +38,8 @@ class _MyHomePageState extends State<MyHomePage> {
   var _tst;
 
   int _currentIndex = 0;
-  final List<Widget> _children = [new Home(), PlaceholderWidget(Colors.green)];
+    // final List<Widget> _children = [ PlaceholderWidget(Colors.orangeAccent), PlaceholderWidget(Colors.blueAccent)]; 
+  final List<Widget> _children = [new Home(),new SearchBar()/* PlaceholderWidget(Colors.blueAccent) */];
 
   @override
   void initState() {
@@ -110,11 +113,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
              new ListTile(
               title: new Text("Profile"),
-              trailing: new Icon(Icons.border_right),
+              trailing: new Icon(Icons.person),
+              onTap: () => Navigator.of(context).push(new MaterialPageRoute(
+                builder: (BuildContext context) => new Profile()
+              )),
             ),
             new ListTile(
               title: new Text("Favorites"),
-              trailing: new Icon(Icons.border_right),
+              trailing: new Icon(Icons.tag_faces),
             ),
             new ListTile(
               title: new Text("Places"),

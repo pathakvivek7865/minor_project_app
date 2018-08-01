@@ -9,6 +9,7 @@ class Place extends Object with _$PlaceSerializerMixin {
   final String address;
   final description;
   final String preferedActivities;
+  bool favored = false;
 
   Place(this.name,this.address, this.preferedActivities,this.description);
 
