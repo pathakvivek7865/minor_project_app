@@ -5,7 +5,7 @@ import 'dart:io';
 import 'pages/profile.dart';
 import './pages/home/home.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:touristguide/pages/login.dart';
+import 'package:touristguide/pages/home/login/login_page.dart';
 // import 'package:material_search/material_search.dart';
 import 'package:touristguide/pages/home/search/search.dart';
 import 'package:http/http.dart' as http;
@@ -154,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
             onPressed: () {
               Navigator.push(context,
-                  new MaterialPageRoute(builder: (context) => new Test()));
+                  new MaterialPageRoute(builder: (context) => new LoginPage()));
             },
             icon: new Icon(Icons.supervised_user_circle),
           )

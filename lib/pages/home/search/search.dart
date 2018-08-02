@@ -98,7 +98,7 @@ class _SearchBarState extends State<SearchBar> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      padding: EdgeInsets.all(1.0),
+      // padding: EdgeInsets.all(1.0),
       child: Column(
         children: <Widget>[
           TextField(
@@ -107,7 +107,7 @@ class _SearchBarState extends State<SearchBar> {
           hasLoaded ? Container() : CircularProgressIndicator(),
           Expanded(
               child: ListView.builder(
-            padding: EdgeInsets.all(1.0),
+            // padding: EdgeInsets.all(1.0),
             itemCount: places.length,
             itemBuilder: (BuildContext context, int index) {
               return new PlaceView(places[index]);
@@ -140,8 +140,8 @@ class PlaceViewState extends State<PlaceView>{
   Widget build(BuildContext context){
     return Card(
       child: Container(
-        height: 200.0,
-        padding: EdgeInsets.all(1.0),
+        height: 100.0,
+        // padding: EdgeInsets.all(1.0),
         child: Row(
           children: <Widget>[
             placeState != null
