@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'pages/profile.dart';
 import './pages/home/home.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
 import 'package:touristguide/pages/home/login/login_page.dart';
 // import 'package:material_search/material_search.dart';
 import 'package:touristguide/pages/home/search/search.dart';
@@ -94,11 +94,11 @@ class _MyHomePageState extends State<MyHomePage> {
               accountEmail: new Text(_tst['contacts'][0]['email'].toString()),
               currentAccountPicture: new GestureDetector(
                 onTap: () {
-                  Fluttertoast.showToast(
+                 /*  Fluttertoast.showToast(
                       msg: "This is Your Account Picture",
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
-                      timeInSecForIos: 1);
+                      timeInSecForIos: 1); */
                 },
                 child: new CircleAvatar(
                   backgroundColor: Colors.red,
