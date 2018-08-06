@@ -74,7 +74,9 @@ class _PlaceDetailBodyState extends State<PlaceDetailBody> {
         child: MaterialButton(
           minWidth: 200.0,
           height: 42.0,
-          onPressed: () {},
+          onPressed: () {
+            
+          },
           color: Colors.lightBlueAccent,
           child: Text('Map', style: TextStyle(color: Colors.white)),
         ),

@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final password = new TextField(
-      keyboardType: TextInputType.emailAddress,
+      obscureText: true,
       autofocus: false,
       decoration: InputDecoration(
         hintText: 'Password',
