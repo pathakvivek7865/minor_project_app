@@ -133,10 +133,10 @@ class _LoginPageState extends State<LoginPage> {
                 break;
               }        
           } */
-          String i = "17";
+          String i = "1";
             while (true) {
               _fetchData(i);
-              if ($username == _tst['name']) {
+              if (_username == _tst['name']) {
                 tid = _tst['id'];
                 break;
               } else {
