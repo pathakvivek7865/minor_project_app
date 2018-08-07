@@ -1,24 +1,23 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'place.g.dart';
+part 'place_model.g.dart';
 
 @JsonSerializable()
-class Place extends Object with _$PlaceSerializerMixin {
+class PlaceModel extends Object with _$PlaceModelSerializerMixin {
 
   final String name;
   final String address;
   final description;
   final String preferedActivities;
-  bool favored = false;
 
-  Place(this.name,this.address, this.preferedActivities,this.description);
+  PlaceModel(this.name,this.address, this.preferedActivities,this.description);
 
-  factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
+  factory PlaceModel.fromJson(Map<String, dynamic> json) => _$PlaceModelFromJson(json);
 }
 
 @JsonSerializable()
 class PlaceResponse extends Object with _$PlaceResponseSerializerMixin{
-  final List<Place> places;
+  final List<PlaceModel> places;
 
   PlaceResponse(this.places);
 

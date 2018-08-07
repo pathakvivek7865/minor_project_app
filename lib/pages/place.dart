@@ -5,24 +5,24 @@ import 'dart:convert';
 import 'package:touristguide/pages/home/model/place_model.dart';
 import 'package:touristguide/pages/home/place_detail.dart';
 
-class Home extends StatelessWidget {
+class Place extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      /*  appBar: new AppBar(
+      appBar: new AppBar(
         title: new Text("Places"),
-      ), */
-      body: new HomeList(),
+      ),
+      body: new PlaceList(),
     );
   }
 }
 
-class HomeList extends StatefulWidget {
+class PlaceList extends StatefulWidget {
   @override
-  createState() => new HomeListState();
+  createState() => new PlaceListState();
 }
 
-class HomeListState extends State<HomeList> {
+class PlaceListState extends State<PlaceList> {
   List<PlaceModel> _place = new List<PlaceModel>();
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
@@ -39,7 +39,6 @@ class HomeListState extends State<HomeList> {
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
 
     final url = 'http://192.168.1.73:8090/places/';
-    //final url = 'http://10.2.0.0:8090/places/';
     final httpClient = new HttpClient();
 
     try {
@@ -69,7 +68,7 @@ class HomeListState extends State<HomeList> {
       itemBuilder: (context, index) {
         return new FlatButton(
           padding: const EdgeInsets.all(0.0),
-          child: _buildCard(_place[index]),
+          child: _buildCart(_place[index]),
           onPressed: () {
             Navigator.push(
                 context,
@@ -81,7 +80,7 @@ class HomeListState extends State<HomeList> {
     );
   }
 
-  Widget _buildCard(PlaceModel place) {
+  Widget _buildCart(PlaceModel place) {
     return new Card(
       child: new Column(
         mainAxisSize: MainAxisSize.min,

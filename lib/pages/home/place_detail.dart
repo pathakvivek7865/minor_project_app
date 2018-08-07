@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:touristguide/pages/home/model/place.dart';
+import 'package:touristguide/pages/home/model/place_model.dart';
 //import 'package:touristguide/pages/home/map.dart';
 
 class PlaceDetail extends StatelessWidget {
-  final Place _place;
+  final PlaceModel _place;
 
   PlaceDetail(this._place);
 
@@ -15,7 +15,7 @@ class PlaceDetail extends StatelessWidget {
 }
 
 class PlaceDetailBody extends StatefulWidget {
-  final Place _place;
+  final PlaceModel _place;
   PlaceDetailBody(this._place);
 
   @override
@@ -23,7 +23,7 @@ class PlaceDetailBody extends StatefulWidget {
 }
 
 class _PlaceDetailBodyState extends State<PlaceDetailBody> {
-  Place _place;
+  PlaceModel _place;
   _PlaceDetailBodyState(this._place);
 
   ScrollController _scrollViewController;

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
 import 'pages/profile.dart';
 import './pages/home/home.dart';
-//import 'package:fluttertoast/fluttertoast.dart';
-import 'package:touristguide/pages/home/login/login_page.dart';
-// import 'package:material_search/material_search.dart';
-import 'package:touristguide/pages/home/search/search.dart';
-import 'package:http/http.dart' as http;
+import 'package:touristguide/pages/login.dart';
+import 'package:touristguide/pages/place.dart';
 
 void main() => runApp(new MyApp());
 
@@ -16,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: new ThemeData(
         primarySwatch: Colors.amber,
@@ -37,9 +36,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var _tst;
 
+/* TabBar items*/
   int _currentIndex = 0;
-    // final List<Widget> _children = [ PlaceholderWidget(Colors.orangeAccent), PlaceholderWidget(Colors.blueAccent)]; 
-  final List<Widget> _children = [new Home(),new SearchBar()/* PlaceholderWidget(Colors.blueAccent) */];
+  final List<Widget> _children = [
+    new Home(),
+    PlaceholderWidget(Colors.blueAccent)
+  ];
 
   @override
   void initState() {
@@ -47,14 +49,16 @@ class _MyHomePageState extends State<MyHomePage> {
     _fetchData();
   }
 
+/* This is the function to connect to server and retrieve the tourist information */
   _fetchData() async {
-    String username = 'beingbivek@gmail.com';
-    String password = 'bivek';
+    String username = 'vivek';
+    String password = 'vivek';
     String basicAuth =
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     //print(basicAuth);
 
-    final url = "http://192.168.100.4:8090/tourists/1";
+    final url = 'http://192.168.1.73:8090/tourists/1/';
+    //final url = "http://10.2.0.0:8090/tourists/1";
     try {
       final response = await http.get(url, headers: {
         HttpHeaders.AUTHORIZATION: basicAuth,
@@ -68,14 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
         setState(() {
           this._tst = responseJson;
         });
-        print(_tst);
-        //print(responseJson);
       } else {
         // _tst = 'Error getting response:\nHttp status ${response.statusCode}';
       }
-
-      //print(map["List"]);
-
     } catch (exception) {
       setState(() {
         // this._tst = "Failed parsing response because of: $exception";
@@ -87,14 +86,34 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       drawer: new Drawer(
+        // navigation drawer
         child: new ListView(
           children: <Widget>[
             new UserAccountsDrawerHeader(
-              accountName: new Text(_tst != null ?_tst['name'] : "Unknown",style: new TextStyle(fontSize: 18.0),),
-              accountEmail: new Text(_tst['contacts'][0]['email'].toString()),
+              accountName: new Text(
+                _tst != null ? _tst['name'] : "Unknown",
+                style: new TextStyle(fontSize: 26.0, color: Colors.white),
+              ),
+              accountEmail: new Text(
+                _tst != null
+                    ? _tst['contacts'][0]['email'].toString()
+                    : 'Unknown',
+                style: new TextStyle(fontSize: 18.0, color: Colors.white),
+              ),
               currentAccountPicture: new GestureDetector(
                 onTap: () {
-                 /*  Fluttertoast.showToast(
+                  Scaffold.of(context).showSnackBar(
+                        new SnackBar(
+                          content: new Text("Added to favorite"),
+                          action: new SnackBarAction(
+                            label: "UNDO",
+                            onPressed: () =>
+                                Scaffold.of(context).hideCurrentSnackBar(),
+                          ),
+                        ),
+                      );
+
+                  /*  Fluttertoast.showToast(
                       msg: "This is Your Account Picture",
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
@@ -102,40 +121,40 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 child: new CircleAvatar(
                   backgroundColor: Colors.red,
-                  // backgroundImage: new NetworkImage("https://bit.ly/2M41eqZ"),
+                  backgroundImage: new NetworkImage("https://bit.ly/2M8yJLQ"),
                 ),
               ),
               decoration: new BoxDecoration(
-                color: Colors.limeAccent,
-                  /* image: new DecorationImage(
+                  color: Colors.orange,
+                  image: new DecorationImage(
                       fit: BoxFit.fill,
-                      image: new NetworkImage("https://bit.ly/2M8PmUk")) */),
+                      image: new NetworkImage("https://bit.ly/2nf4Hbb"))),
             ),
-             new ListTile(
+            new ListTile(
+              /* this populate profile of the tourist from /pages/profile.dart file */
               title: new Text("Profile"),
-              trailing: new Icon(Icons.person),
+              leading: new Icon(Icons.person),
               onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                builder: (BuildContext context) => new Profile()
-              )),
+                  builder: (BuildContext context) => new Profile())),
             ),
             new ListTile(
               title: new Text("Favorites"),
-              trailing: new Icon(Icons.tag_faces),
+              leading: new Icon(Icons.tag_faces),
             ),
             new ListTile(
               title: new Text("Places"),
-              trailing: new Icon(Icons.place),
+              leading: new Icon(Icons.place),
               onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (BuildContext context) => new Home())),
+                  builder: (BuildContext context) => new Place())),
             ),
             new ListTile(
               title: new Text("About Us"),
-              trailing: new Icon(Icons.contact_phone),
+              leading: new Icon(Icons.contact_phone),
             ),
             new Divider(),
             new ListTile(
               title: new Text("Close"),
-              trailing: new Icon(Icons.close),
+              leading: new Icon(Icons.close),
               onTap: () => Navigator.of(context).pop(),
             )
           ],
@@ -154,12 +173,14 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
             onPressed: () {
               Navigator.push(context,
-                  new MaterialPageRoute(builder: (context) => new LoginPage()));
+                  new MaterialPageRoute(builder: (context) => new Login()));
             },
             icon: new Icon(Icons.supervised_user_circle),
           )
         ],
       ),
+
+      /* botttom navigatiation bar*/
       body: _children[_currentIndex],
       bottomNavigationBar: new BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -181,6 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+/* class for tab onTap to display colos*/
 class PlaceholderWidget extends StatelessWidget {
   final Color color;
 

@@ -7,29 +7,25 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
-class Test extends StatefulWidget {
+import 'package:shared_preferences/shared_preferences.dart';
+
+class Login extends StatefulWidget {
   // Test({Key key, this.title}) : super(key: key);
   //final String title;
 
   @override
-  _TestState createState() => new _TestState();
+  _LoginState createState() => new _LoginState();
 }
 
-class _TestState extends State<Test> {
+class _LoginState extends State<Login> {
   var _tst;
   var _username;
   var _password;
   var _loginStatus;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   Future<Null> _fetchData() async {
     setState(() {
       _tst = null;
-      _loginStatus = null;
     });
 
     String username = _username;
@@ -38,7 +34,8 @@ class _TestState extends State<Test> {
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     //print(basicAuth);
 
-    final url = "http://192.168.100.4:8090/tourists/3";
+    final url = 'http://192.168.1.73:8090/login/';
+    //final url = "http://10.2.0.0:8090/login";
     try {
       final response = await http.get(url, headers: {
         HttpHeaders.AUTHORIZATION: basicAuth,
@@ -48,11 +45,12 @@ class _TestState extends State<Test> {
       if (response.statusCode == 200) {
         final responseJson = json.decode(response.body);
         //final user = responseJson['id'];
+        _saveUsername(_username);
 
         setState(() {
           this._tst = responseJson;
 
-          this._loginStatus = "Successifully Logged In";
+          this._loginStatus = "Successfully Logged In";
         });
         //print(_tst);
         print(responseJson);
@@ -63,14 +61,30 @@ class _TestState extends State<Test> {
               'Error getting response:\nHttp status ${response.body}';
         });
       }
-
-      //print(map["List"]);
-
     } catch (exception) {
       setState(() {
         this._loginStatus = "Failed parsing response because of: $exception";
       });
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getUsername();
+  }
+
+  Future<bool> _saveUsername(String uname) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setString('username', uname);
+    return true;
+  }
+
+  Future<String> _getUsername() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String uname = prefs.getString("username");
+    return uname;
   }
 
   @override
@@ -114,15 +128,12 @@ class _TestState extends State<Test> {
                   padding: const EdgeInsets.all(20.0),
                   child: new Column(
                     children: <Widget>[
-                      new Text(_tst != null ? _tst['id'].toString() : ""),
-                      new Text(_tst != null ? _tst['name'] : ""),
-                      new Text(_tst != null ? _tst['status'].toString() : ""),
+                      new Text(_tst != null ? _tst.toString() : ""),
                       new Text(
-                        _loginStatus != null ? _loginStatus : "",
+                        _loginStatus != null ? _loginStatus : "Offline",
                         style: new TextStyle(
                             fontSize: 20.0, color: Colors.blueAccent),
                       ),
-                      // new Text( _tst['address'].length()  <0 ? "" : _tst['address'][0]['country'].toString()),
                     ],
                   ),
                 ),
