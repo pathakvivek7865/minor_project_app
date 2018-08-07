@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:touristguide/pages/home/login/home_page.dart';
+import 'package:touristguide/pages/home/login/userprofile.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
@@ -13,10 +13,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  var _unctrl = new TextEditingController();
-  var _tst;
+  // var _unctrl = new TextEditingController();
   var _username;
-  int tid = 1;
+  String tid;
   var _password;
   var _loginStatus;
   int count;
@@ -26,9 +25,9 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
   }
 
-  Future<Null> _fetchData(String id) async {
+  Future<Null> _fetchData() async {
     setState(() {
-      _tst = null;
+    
       _loginStatus = null;
     });
 
@@ -38,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     //print(basicAuth);
 
-    final url = "http://192.168.100.4:8090/tourists/$id";
+    final url = "http://192.168.100.4:8090/login";
     try {
       final response = await http.get(url, headers: {
         HttpHeaders.AUTHORIZATION: basicAuth,
@@ -50,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
         //final user = responseJson['id'];
 
         setState(() {
-          this._tst = responseJson;
+          tid = responseJson.toString();
 
           this._loginStatus = "Successfully Logged In";
         });
@@ -80,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 48.0,
-        child: Image.asset('assets/logo.png'),
+        child: Image.network("https://bit.ly/2OR2OhK"),
       ),
     );
 
@@ -95,11 +94,12 @@ class _LoginPageState extends State<LoginPage> {
       onChanged: (String string) {
         _username = string;
       },
-      controller: _unctrl,
+      
     );
 
     final password = new TextField(
       obscureText: true,
+      keyboardType: TextInputType.emailAddress,
       autofocus: false,
       decoration: InputDecoration(
         hintText: 'Password',
@@ -121,32 +121,12 @@ class _LoginPageState extends State<LoginPage> {
           minWidth: 200.0,
           height: 42.0,
           onPressed: () {
-           /*  _fetchData();
-            new Container(
-              child: new Text(_tst['name']),
-            ); */
 
-            /* for (var i = 0; i < _tst.length; i++) {
-              _fetchData('i');
-              if (_username == _tst['name']) {
-                tid = _tst['id'];
-                break;
-              }        
-          } */
-          String i = "1";
-            while (true) {
-              _fetchData(i);
-              if (_username == _tst['name']) {
-                tid = _tst['id'];
-                break;
-              } else {
-                tid = tid + 1;
-                i = tid.toString();
-              }
-            }
+              _fetchData();
+            
             var route = new MaterialPageRoute(
               builder: (BuildContext context) =>
-                  new UserProfile(uname: _unctrl.text),
+                  new UserProfile(uname: tid),
             );
             Navigator.of(context).push(route);
           },

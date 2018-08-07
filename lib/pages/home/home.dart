@@ -31,8 +31,6 @@ class PeopleCardViewState extends State<PlaceCardView> {
   }
 
   _getPlaceList() async {
-    //final url = 'https://my-json-server.typicode.com/pathakvivek7865/fakejson/db';
-    //final url = 'https://swapi.co/api/people/';
     final url = 'http://192.168.100.4:8090/places/';
     final httpClient = new HttpClient();
 
