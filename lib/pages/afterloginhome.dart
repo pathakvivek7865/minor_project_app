@@ -24,8 +24,11 @@ class _AfterLoginHomeState extends State<AfterLoginHome> {
   String tid;
 
   int _currentIndex = 0;
-    // final List<Widget> _children = [ PlaceholderWidget(Colors.orangeAccent), PlaceholderWidget(Colors.blueAccent)]; 
-  final List<Widget> _children = [new Home(),new SearchBar()/* PlaceholderWidget(Colors.blueAccent) */];
+  // final List<Widget> _children = [ PlaceholderWidget(Colors.orangeAccent), PlaceholderWidget(Colors.blueAccent)];
+  final List<Widget> _children = [
+    new Home(),
+    new SearchBar() /* PlaceholderWidget(Colors.blueAccent) */
+  ];
 
   @override
   void initState() {
@@ -45,6 +48,35 @@ class _AfterLoginHomeState extends State<AfterLoginHome> {
     } */
     _fetchData(tid);
   }
+
+
+    _neverSatisfied() async {
+    return showDialog<Null>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return new AlertDialog(
+        title: new Text('Are You Sure?'),
+        actions: <Widget>[
+          new FlatButton(
+            child: new Text('Logout'),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => MyHomePage()
+              ));
+            },
+          ),
+          new FlatButton(
+            child: new Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+    }
 
   _fetchData(String tid) async {
     String username = 'beingbivek@gmail.com';
@@ -89,7 +121,10 @@ class _AfterLoginHomeState extends State<AfterLoginHome> {
         child: new ListView(
           children: <Widget>[
             new UserAccountsDrawerHeader(
-              accountName: new Text(_tst != null ?_tst['name'] : "Unknown",style: new TextStyle(fontSize: 18.0),),
+              accountName: new Text(
+                _tst != null ? _tst['name'] : "Unknown",
+                style: new TextStyle(fontSize: 18.0),
+              ),
               accountEmail: new Text(_tst['contacts'][0]['email'].toString()),
               currentAccountPicture: new GestureDetector(
                 onTap: () {
@@ -104,23 +139,22 @@ class _AfterLoginHomeState extends State<AfterLoginHome> {
                 ),
               ),
               decoration: new BoxDecoration(
-                // color: Colors.limeAccent,
+                  // color: Colors.limeAccent,
                   image: new DecorationImage(
                       fit: BoxFit.fill,
                       image: new NetworkImage("https://bit.ly/2ANJNJT"))),
             ),
-             new ListTile(
-              title: new Text("Profile"),
-              trailing: new Icon(Icons.person),
-              onTap: () {
-                UserProfile();
-            var route = new MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  new UserProfile(uname: tid),
-            );
-            Navigator.of(context).push(route);
-              }
-            ),
+            new ListTile(
+                title: new Text("Profile"),
+                trailing: new Icon(Icons.person),
+                onTap: () {
+                  UserProfile();
+                  var route = new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        new UserProfile(uname: tid),
+                  );
+                  Navigator.of(context).push(route);
+                }),
             new ListTile(
               title: new Text("Favorites"),
               trailing: new Icon(Icons.tag_faces),
@@ -129,8 +163,7 @@ class _AfterLoginHomeState extends State<AfterLoginHome> {
               title: new Text("Places"),
               trailing: new Icon(Icons.place),
               onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (BuildContext context) => new Home()
-                  )),
+                  builder: (BuildContext context) => new Home())),
             ),
             new ListTile(
               title: new Text("About Us"),
@@ -140,17 +173,15 @@ class _AfterLoginHomeState extends State<AfterLoginHome> {
             new ListTile(
               title: new Text("LogOut"),
               trailing: new Icon(Icons.exit_to_app),
-              onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (BuildContext context) => new MyHomePage()
-                  )),
-            )
-          ],
-        ),
+              onTap: () => _neverSatisfied()
+            ),
+          ]
+        )
       ),
       appBar: new AppBar(
         title: new Text(_tst != null ? "Welcome " + _tst['name'] : "Welcome"),
         actions: <Widget>[
-         /*  IconButton(
+          /*  IconButton(
             onPressed: () {
               Navigator.push(context,
                   new MaterialPageRoute(builder: (context) => new Profile()));
@@ -158,12 +189,12 @@ class _AfterLoginHomeState extends State<AfterLoginHome> {
             icon: new Icon(Icons.local_gas_station),
           ), */
           IconButton(
-            onPressed: () {UserProfile();
-            var route = new MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  new UserProfile(uname: tid),
-            );
-            Navigator.of(context).push(route);
+            onPressed: () {
+              UserProfile();
+              var route = new MaterialPageRoute(
+                builder: (BuildContext context) => new UserProfile(uname: tid),
+              );
+              Navigator.of(context).push(route);
             },
             icon: new Icon(Icons.supervised_user_circle),
           )

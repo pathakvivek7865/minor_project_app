@@ -82,6 +82,49 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   } */
 
+      _neverSatisfied() async {
+        final logo = Hero(
+      tag: 'hero',
+      child: CircleAvatar(
+        backgroundColor: Colors.transparent,
+        radius: 48.0,
+        child: Image.network("https://bit.ly/2OR2OhK"),
+      ),
+    );
+    return showDialog<Null>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return new AlertDialog(
+        title: new Container(
+        child: Column(
+          children: <Widget>[
+            logo,
+        new Text('Login or SignUp'),
+          ],
+        ),
+        ),
+        actions: <Widget>[
+          new RaisedButton(
+            child: new Text('Login'),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => LoginPage()
+              ));
+            },
+          ),
+          new RaisedButton(
+            child: new Text('SignUp'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+    }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -112,9 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
             new ListTile(
               title: new Text("Login/Signup"),
               trailing: new Icon(Icons.arrow_forward),
-              onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (BuildContext context) => new LoginPage()
-                  )),
+              onTap: () => _neverSatisfied()
             ),/* 
              new ListTile(
               title: new Text("Profile"),
