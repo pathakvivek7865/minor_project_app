@@ -9,7 +9,6 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-     
       body: new PlaceCardView(),
     );
   }
@@ -31,7 +30,7 @@ class PeopleCardViewState extends State<PlaceCardView> {
   }
 
   _getPlaceList() async {
-    final url = 'http://192.168.1.73:8090/places/';
+    final url = 'http://192.168.100.4:8090/places/';
     final httpClient = new HttpClient();
 
     try {
@@ -55,28 +54,23 @@ class PeopleCardViewState extends State<PlaceCardView> {
 
   Widget _buildPlaceList() {
     return new ListView.builder(
-     // padding: const EdgeInsets.all(5.0),
+      // padding: const EdgeInsets.all(5.0),
       itemCount: _place.length != null ? _place.length : 0,
       itemBuilder: (context, index) {
         return new FlatButton(
           padding: const EdgeInsets.all(0.0),
           child: _buildCart(_place[index]),
           onPressed: () {
-
-              Navigator.push(
+            Navigator.push(
                 context,
-                 new MaterialPageRoute(
-                   builder: (context) => new PlaceDetail(_place[index])
-                 )
-                 
-              );
-
-            },
+                new MaterialPageRoute(
+                    builder: (context) => new PlaceDetail(_place[index])));
+          },
         );
-        
       },
     );
   }
+
 
   /*Widget _buildCard(Place place) {
     return new ListTile(
@@ -87,38 +81,38 @@ class PeopleCardViewState extends State<PlaceCardView> {
 
   Widget _buildCart(Place place) {
     return new Card(
-        child: new Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: Text(
-                place.name,
-                style: _biggerFont,
-              ),
-              subtitle: Text(place.address),
+      child: new Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTile(
+            leading: const Icon(Icons.home),
+            title: Text(
+              place.name,
+              style: _biggerFont,
             ),
+            subtitle: Text(place.address),
+          ),
 
-            //new Divider(),
-            new Container(
-              padding: const EdgeInsets.all(0.0),
-              child: new Image.network(place.preferedActivities),
+          //new Divider(),
+          new Container(
+            padding: const EdgeInsets.all(0.0),
+            child: new Image.network(place.preferedActivities),
+          ),
+          new ButtonTheme.bar(
+            // make buttons use the appropriate styles for cards
+            child: new ButtonBar(
+              
+              children: <Widget>[
+                FlatButton(
+                  child: Text("More"),
+                  onPressed: (){}
+                ),
+              ],
             ),
-            new ButtonTheme.bar(
-              // make buttons use the appropriate styles for cards
-              child: new ButtonBar(
-                children: <Widget>[
-                 
-                  new FlatButton(
-                    child: const Text('More>>'),
-                    onPressed: () {/* ... */},
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
   }
 
   @override

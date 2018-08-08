@@ -9,8 +9,6 @@ class PlaceMap extends StatefulWidget{
 }
 
 
-
-
 class _PlaceMapState extends State<PlaceMap>{
 
    LocationResult locations ;
