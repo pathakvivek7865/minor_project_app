@@ -42,43 +42,72 @@ class _PlaceDetailBodyState extends State<PlaceDetailBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: NestedScrollView(
-        controller: _scrollViewController,
-        headerSliverBuilder: (BuildContext context, bool boxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-             // title: Text(_place.name),
-              pinned: false,
-              floating: true,
-              forceElevated: boxIsScrolled, 
-              expandedHeight: 300.0,
+    final alucard = Hero(
+      tag: 'hero',
+      child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Image.network(_place.preferedActivities)),
+    );
 
-              
+    final welcome = Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Text(
+        _place.name /* ${widget.uname} */,
+        style: TextStyle(fontSize: 28.0, color: Colors.white),
+      ),
+    );
 
-              flexibleSpace:  FlexibleSpaceBar(
-              title:  Text(_place.name),
-              centerTitle: true,
-              background: Image.network(_place.preferedActivities),
-              
-              ), 
-            ),
-            
-          ];
-        },
-        body: new Container(
-          child: Column(
-            children:<Widget>[
-              //  Container(
-              //    padding: const EdgeInsets.fromLTRB(0.0, 1.0, 0.0, 0.0),
-              //    child: new Image.network(_place.preferedActivities)
-              // ),
-               new Text(_place.description),
-          ],),
+    final lorem = Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Text(
+        _place.description,
+        style: TextStyle(fontSize: 16.0, color: Colors.white),
+      ),
+    );
+
+    final midbtn = Padding(
+      padding: EdgeInsets.symmetric(vertical: 16.0),
+      child: Material(
+        borderRadius: BorderRadius.circular(30.0),
+        shadowColor: Colors.lightBlueAccent.shade100,
+        elevation: 5.0,
+        child: MaterialButton(
+          minWidth: 200.0,
+          height: 42.0,
+        onPressed: (){}/*() {
+          var route = new MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  new PlaceMap(),
+            );
+            Navigator.of(context).push(route);
+        }*/,
+          color: Colors.lightBlueAccent,
+          child: Text('Map', style: TextStyle(color: Colors.white)),
         ),
       ),
     );
 
-    
+    final body = Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(28.0),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(colors: [
+          Colors.blue,
+          Colors.lightBlueAccent,
+        ]),
+      ),
+      child: Column(
+        children: <Widget>[
+          alucard,
+          welcome,
+          midbtn,
+          lorem,
+        ],
+      ),
+    );
+
+    return Scaffold(
+      body: body,
+    );
   }
 }

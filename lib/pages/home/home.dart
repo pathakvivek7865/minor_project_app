@@ -33,6 +33,7 @@ class HomeListState extends State<HomeList> {
   }
 
   _getPlaceList() async {
+<<<<<<< HEAD
     String username = 'vivek';
     String password = 'vivek';
     String basicAuth =
@@ -40,6 +41,9 @@ class HomeListState extends State<HomeList> {
 
     final url = 'http://192.168.1.73:8090/places/';
     //final url = 'http://10.2.0.0:8090/places/';
+=======
+    final url = 'http://192.168.1.73:8090/places/';
+>>>>>>> kaji
     final httpClient = new HttpClient();
 
     try {

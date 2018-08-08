@@ -69,18 +69,17 @@ class _PlaceMapState extends State<PlaceMap>{
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-        accentColor: const Color(0xFFF850DD),
+    return new Scaffold(
+      appBar: new AppBar(
+        title: Text("Your Location"),
       ),
-      home: new Center(
+      body: new Center(
           child: Container(
         child: ListView(
           children: [
             Image.network(locations == null
                 ? ""
-                : "https://maps.googleapis.com/maps/api/staticmap?center=${locations.location.latitude},${locations.location.longitude}&zoom=12&size=400x400&key=AIzaSyCPZgp3iqWw6QbR6w-N20qShBN05Yj2tnE")
+                : "https://maps.googleapis.com/maps/api/staticmap?center=${locations.location.latitude},${locations.location.longitude}&zoom=12&size=400x400&key=AIzaSyD1sYXbxLychb3_80-cXn7r-t2XsbgzbF0")
           ],
         ),
       )),

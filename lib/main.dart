@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
+import './pages/homepage.dart';
+/* import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import 'pages/profile.dart';
 import './pages/home/home.dart';
+<<<<<<< HEAD
 import 'package:touristguide/pages/login.dart';
 import 'package:touristguide/pages/place.dart';
+=======
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:touristguide/pages/home/login/login_page.dart';
+import 'package:material_search/material_search.dart';
+import 'package:touristguide/pages/home/search/search.dart';
+import 'package:http/http.dart' as http; */
+>>>>>>> kaji
 
 void main() => runApp(new MyApp());
 
@@ -14,11 +23,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+<<<<<<< HEAD
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+=======
+      title: 'ITG',
+>>>>>>> kaji
       theme: new ThemeData(
-        primarySwatch: Colors.amber,
+        primarySwatch: Colors.lightBlue,
       ),
+<<<<<<< HEAD
       home: new MyHomePage(title: 'Tour'),
     );
   }
@@ -212,6 +226,9 @@ class PlaceholderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: color,
+=======
+      home: new MyHomePage(),
+>>>>>>> kaji
     );
   }
 }
