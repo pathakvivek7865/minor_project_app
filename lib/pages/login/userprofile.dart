@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
-import 'package:touristguide/pages/afterloginhome.dart';
-
-// import 'pages/profile.dart';
-// import './pages/home/home.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
-// import 'package:touristguide/pages/home/login/login_page.dart';
-// import 'package:material_search/material_search.dart';
-// import 'package:touristguide/pages/home/search/search.dart';
 import 'package:http/http.dart' as http;
+
+import 'package:touristguide/pages/afterloginhome.dart';
 
 class UserProfile extends StatefulWidget{
   final String uname;
@@ -35,14 +29,14 @@ class UserProfileState extends State<UserProfile> {
   }
 
   _fetchData(String tid) async {
-    String username = 'beingbivek@gmail.com';
-    String password = 'bivek';
+    String username = 'vivek';
+    String password = 'vivek';
     print(tid);
     String basicAuth =
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     //print(basicAuth);
 
-    final url = "http://192.168.100.4:8090/tourists/$tid";
+    final url = "http://192.168.1.73:8090/tourists/$tid";
     try {
       final response = await http.get(url, headers: {
         HttpHeaders.AUTHORIZATION: basicAuth,
@@ -88,7 +82,7 @@ class UserProfileState extends State<UserProfile> {
     final welcome = Padding(
       padding: EdgeInsets.all(8.0),
       child:
-       Text(_tst['name'],
+       Text(_tst == null ?  "Unknown" : _tst['name'] ,
         style: TextStyle(fontSize: 28.0, color: Colors.white),
       ),
     );

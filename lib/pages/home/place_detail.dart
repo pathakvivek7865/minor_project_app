@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:touristguide/pages/home/model/place.dart';
-// import 'package:touristguide/pages/home/map.dart';
+//import 'package:touristguide/pages/home/map.dart';
 
 class PlaceDetail extends StatelessWidget {
   final Place _place;
@@ -74,11 +74,13 @@ class _PlaceDetailBodyState extends State<PlaceDetailBody> {
         child: MaterialButton(
           minWidth: 200.0,
           height: 42.0,
-          onPressed: () {}/* =>
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext context) => new PlaceMap(),
-            )
-            ) */,
+        onPressed: (){}/*() {
+          var route = new MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  new PlaceMap(),
+            );
+            Navigator.of(context).push(route);
+        }*/,
           color: Colors.lightBlueAccent,
           child: Text('Map', style: TextStyle(color: Colors.white)),
         ),

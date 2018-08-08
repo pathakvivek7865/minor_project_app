@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'ITG',
       theme: new ThemeData(
-        primarySwatch: Colors.amber,
+        primarySwatch: Colors.lightBlue,
       ),
       home: new MyHomePage(),
     );

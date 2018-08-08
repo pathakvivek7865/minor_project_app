@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:touristguide/pages/home/login/userprofile.dart';
+import 'package:touristguide/pages/login/userprofile.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+
+import 'package:touristguide/component/getImage.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
@@ -17,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   var _username;
   String tid;
   var _password;
-  var _loginStatus;
+  bool _loginStatus;
   int count;
 
   @override
@@ -27,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<Null> _fetchData() async {
     setState(() {
-    
       _loginStatus = null;
     });
 
@@ -37,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     //print(basicAuth);
 
-    final url = "http://192.168.100.4:8090/login";
+    final url = "http://192.168.1.73:8090/login";
     try {
       final response = await http.get(url, headers: {
         HttpHeaders.AUTHORIZATION: basicAuth,
@@ -51,15 +52,18 @@ class _LoginPageState extends State<LoginPage> {
         setState(() {
           tid = responseJson.toString();
 
-          this._loginStatus = "Successfully Logged In";
+          //this._loginStatus = "Successfully Logged In";
+          this._loginStatus = true;
         });
+
         //print(_tst);
         print(responseJson);
       } else {
         print(response.body);
         setState(() {
-          this._loginStatus =
-              'Error getting response:\nHttp status ${response.body}';
+          /* this._loginStatus =
+              'Error getting response:\nHttp status ${response.body}'; */
+          this._loginStatus = false;
         });
       }
 
@@ -67,10 +71,12 @@ class _LoginPageState extends State<LoginPage> {
 
     } catch (exception) {
       setState(() {
-        this._loginStatus = "Failed parsing response because of: $exception";
+        // this._loginStatus = "Failed parsing response because of: $exception";
+        this._loginStatus = false;
       });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,13 +85,13 @@ class _LoginPageState extends State<LoginPage> {
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 48.0,
-        child: Image.network("https://bit.ly/2OR2OhK"),
+        child: getImage("https://bit.ly/2OR2OhK"),
       ),
     );
 
     final email = new TextField(
       keyboardType: TextInputType.emailAddress,
-      autofocus: false,
+      autofocus: true,
       decoration: InputDecoration(
         hintText: 'Email',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -94,13 +100,12 @@ class _LoginPageState extends State<LoginPage> {
       onChanged: (String string) {
         _username = string;
       },
-      
     );
 
     final password = new TextField(
       obscureText: true,
       keyboardType: TextInputType.emailAddress,
-      autofocus: false,
+      autofocus: true,
       decoration: InputDecoration(
         hintText: 'Password',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -121,14 +126,14 @@ class _LoginPageState extends State<LoginPage> {
           minWidth: 200.0,
           height: 42.0,
           onPressed: () {
+            _fetchData();
 
-              _fetchData();
-            
-            var route = new MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  new UserProfile(uname: tid),
-            );
-            Navigator.of(context).push(route);
+            if (_loginStatus == true) {
+              var route = new MaterialPageRoute(
+                builder: (BuildContext context) => new UserProfile(uname: tid),
+              );
+              Navigator.of(context).push(route);
+            }
           },
           color: Colors.lightBlueAccent,
           child: Text('Log In', style: TextStyle(color: Colors.white)),
@@ -141,18 +146,7 @@ class _LoginPageState extends State<LoginPage> {
         'Forgot password?',
         style: TextStyle(color: Colors.black54),
       ),
-      onPressed: () {
-        new Container(
-          child: Column(
-            children: <Widget>[
-              new Text(
-                _loginStatus != null ? _loginStatus : "",
-                style: new TextStyle(fontSize: 20.0, color: Colors.blueAccent),
-              )
-            ],
-          ),
-        );
-      },
+      onPressed: () {},
     );
 
     return Scaffold(

@@ -5,9 +5,8 @@ import 'dart:io';
 import './home/home.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:touristguide/pages/homepage.dart';
-import './home/login/userprofile.dart';
-// import 'package:material_search/material_search.dart';
-import 'package:touristguide/pages/home/search/search.dart';
+import './login/userprofile.dart';
+import 'package:touristguide/pages/search/search.dart';
 import 'package:http/http.dart' as http;
 
 class AfterLoginHome extends StatefulWidget {
@@ -79,13 +78,13 @@ class _AfterLoginHomeState extends State<AfterLoginHome> {
     }
 
   _fetchData(String tid) async {
-    String username = 'beingbivek@gmail.com';
-    String password = 'bivek';
+    String username = 'vivek';
+    String password = 'vivek';
     String basicAuth =
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     //print(basicAuth);
 
-    final url = "http://192.168.100.4:8090/tourists/$tid";
+    final url = "http://192.168.1.73:8090/tourists/$tid";
     try {
       final response = await http.get(url, headers: {
         HttpHeaders.AUTHORIZATION: basicAuth,
@@ -125,7 +124,7 @@ class _AfterLoginHomeState extends State<AfterLoginHome> {
                 _tst != null ? _tst['name'] : "Unknown",
                 style: new TextStyle(fontSize: 18.0),
               ),
-              accountEmail: new Text(_tst['contacts'][0]['email'].toString()),
+              accountEmail: new Text(_tst['contacts'].toString() != null ? _tst['contacts'][0]['email'].toString() : "Unknown"),
               currentAccountPicture: new GestureDetector(
                 onTap: () {
                   Fluttertoast.showToast(

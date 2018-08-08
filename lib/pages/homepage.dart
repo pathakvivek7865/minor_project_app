@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-// import 'dart:convert';
-// import 'dart:io';
-
-// import './profile.dart';
-import './home/home.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:touristguide/pages/home/login/login_page.dart';
-// import './home/login/userprofile.dart';
-// import 'package:material_search/material_search.dart';
-import 'package:touristguide/pages/home/search/search.dart';
-// import 'package:http/http.dart' as http;
+
+import 'package:touristguide/pages/home/home.dart';
+import 'package:touristguide/pages/login/login_page.dart';
+import 'package:touristguide/pages/search/search.dart';
+import 'package:touristguide/component/getImage.dart';
+import 'package:touristguide/pages/signup.dart';
 
 class MyHomePage extends StatefulWidget {
-  // final String pvalue;
-
   // MyHomePage({Key key, this.pvalue}) : super(key: key);
 
   @override
@@ -21,29 +15,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // var _tst;
-
   int _currentIndex = 0;
-    // final List<Widget> _children = [ PlaceholderWidget(Colors.orangeAccent), PlaceholderWidget(Colors.blueAccent)]; 
-  final List<Widget> _children = [new Home(),new SearchBar()/* PlaceholderWidget(Colors.blueAccent) */];
+  final List<Widget> _children = [new Home(), new SearchBar()];
 
   @override
   void initState() {
     super.initState();
-/*     String duser = "${widget.pvalue}";
-    String pbool = duser[0];
-    String tid = "";
-    if (pbool == "1") {
-    tid = "";
-    int j = duser.length;
-    for (int i = 1; i < j; i++) {
-    tid = tid + duser[i];
-    }      
-    }
-    else{
-    tid = '1';
-    }
-    _fetchData(tid); */
   }
 /* 
   _fetchData(String tid) async {
@@ -82,48 +59,51 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   } */
 
-      _neverSatisfied() async {
-        final logo = Hero(
+  
+
+  _neverSatisfied() async {
+    final logo = Hero(
       tag: 'hero',
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 48.0,
-        child: Image.network("https://bit.ly/2OR2OhK"),
+        child: getImage("https://bit.ly/2OR2OhK"),
       ),
     );
+
     return showDialog<Null>(
-    context: context,
-    barrierDismissible: false, // user must tap button!
-    builder: (BuildContext context) {
-      return new AlertDialog(
-        title: new Container(
-        child: Column(
-          children: <Widget>[
-            logo,
-        new Text('Login or SignUp'),
+      context: context,
+      barrierDismissible: true, // user may not tap button!
+      builder: (BuildContext context) {
+        return new AlertDialog(
+          title: new Container(
+            child: Column(
+              children: <Widget>[
+                logo,
+                new Text('Login or SignUp'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            new RaisedButton(
+              child: new Text('Login'),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => LoginPage()));
+              },
+            ),
+            new RaisedButton(
+              child: new Text('SignUp'),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => Signup()));
+              },
+            ),
           ],
-        ),
-        ),
-        actions: <Widget>[
-          new RaisedButton(
-            child: new Text('Login'),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => LoginPage()
-              ));
-            },
-          ),
-          new RaisedButton(
-            child: new Text('SignUp'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-    }
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +112,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: new ListView(
           children: <Widget>[
             new UserAccountsDrawerHeader(
-              accountName: new Text("Username",style: new TextStyle(fontSize: 18.0),),
+              accountName: new Text(
+                "Username",
+                style: new TextStyle(fontSize: 18.0),
+              ),
               accountEmail: new Text("Email"),
               currentAccountPicture: new GestureDetector(
                 onTap: () {
@@ -147,42 +130,33 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               decoration: new BoxDecoration(
-                // color: Colors.limeAccent,
+                  // color: Colors.limeAccent,
                   image: new DecorationImage(
                       fit: BoxFit.fill,
                       image: new NetworkImage("https://bit.ly/2ANJNJT"))),
             ),
             new ListTile(
-              title: new Text("Login/Signup"),
-              trailing: new Icon(Icons.arrow_forward),
-              onTap: () => _neverSatisfied()
-            ),/* 
-             new ListTile(
-              title: new Text("Profile"),
-              trailing: new Icon(Icons.person),
-              onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                builder: (BuildContext context) => new UserProfile()
-              )),
-            ), */
+                title: new Text("Login/Signup"),
+                trailing: new Icon(Icons.arrow_forward),
+                onTap: () => _neverSatisfied()),
             new ListTile(
               title: new Text("Favorites"),
-              trailing: new Icon(Icons.tag_faces),
+              leading: new Icon(Icons.tag_faces),
             ),
             new ListTile(
               title: new Text("Places"),
-              trailing: new Icon(Icons.place),
+              leading: new Icon(Icons.place),
               onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (BuildContext context) => new Home()
-                  )),
+                  builder: (BuildContext context) => new Home())),
             ),
             new ListTile(
               title: new Text("About Us"),
-              trailing: new Icon(Icons.contact_phone),
+              leading: new Icon(Icons.contact_phone),
             ),
             new Divider(),
             new ListTile(
               title: new Text("Close"),
-              trailing: new Icon(Icons.close),
+              leading: new Icon(Icons.close),
               onTap: () => Navigator.of(context).pop(),
             )
           ],
@@ -190,22 +164,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       appBar: new AppBar(
         title: new Text("ITG"),
-        actions: <Widget>[
-/*           IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  new MaterialPageRoute(builder: (context) => new Profile()));
-            },
-            icon: new Icon(Icons.local_gas_station),
-          ), */
-          IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  new MaterialPageRoute(builder: (context) => new LoginPage()));
-            },
-            icon: new Icon(Icons.supervised_user_circle),
-          )
-        ],
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: new BottomNavigationBar(
@@ -224,19 +182,6 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-    );
-  }
-}
-
-class PlaceholderWidget extends StatelessWidget {
-  final Color color;
-
-  PlaceholderWidget(this.color);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: color,
     );
   }
 }
