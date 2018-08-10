@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:touristguide/pages/home/model/place.dart';
 import 'package:touristguide/pages/home/place_detail.dart';
+import 'package:touristguide/component/getImage.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -102,13 +103,12 @@ class PeopleCardViewState extends State<PlaceCardView> {
             //new Divider(),
             new Container(
               padding: const EdgeInsets.all(0.0),
-              child: new Image.network(place.preferedActivities),
+              child: getImage(place.featuredImage),
             ),
             new ButtonTheme.bar(
               // make buttons use the appropriate styles for cards
               child: new ButtonBar(
                 children: <Widget>[
-                 
                   new FlatButton(
                     child: const Text('More>>'),
                     onPressed: () {/* ... */},

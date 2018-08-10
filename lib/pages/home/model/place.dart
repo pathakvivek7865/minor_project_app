@@ -5,13 +5,14 @@ part 'place.g.dart';
 @JsonSerializable()
 class Place extends Object with _$PlaceSerializerMixin {
 
+  final int id;
   final String name;
   final String address;
   final description;
-  final String preferedActivities;
+  final String featuredImage;
   bool favored = false;
 
-  Place(this.name,this.address, this.preferedActivities,this.description);
+  Place(this.id,this.name,this.address, this.featuredImage,this.description);
 
   factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
 }
