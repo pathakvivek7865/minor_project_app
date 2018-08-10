@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:touristguide/pages/home/model/place.dart';
+import 'package:touristguide/component/getImage.dart';
+import 'dart:async';
+
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+
 //import 'package:touristguide/pages/home/map.dart';
 
 class PlaceDetail extends StatelessWidget {
@@ -24,6 +31,7 @@ class PlaceDetailBody extends StatefulWidget {
 
 class _PlaceDetailBodyState extends State<PlaceDetailBody> {
   Place _place;
+  int _rating;
   _PlaceDetailBodyState(this._place);
 
   ScrollController _scrollViewController;
@@ -40,13 +48,32 @@ class _PlaceDetailBodyState extends State<PlaceDetailBody> {
     _scrollViewController.dispose();
   }
 
+  Future rate(int rating) async {
+    var url = "http://localhost:8090/rating";
+    Map<String, dynamic> data = {
+      "userId": 3,
+      "placeId": _place,
+      "rating": rating
+    };  
+    try {
+      http.Response res = await http.post(url,
+          body: jsonEncode(data),
+          headers: {HttpHeaders.CONTENT_TYPE: 'application/json'});
+          print(jsonEncode(data));
+
+      if (res.statusCode == 200) {
+        print("rated successfully");
+      }
+    } catch (exception) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     final alucard = Hero(
       tag: 'hero',
       child: Padding(
           padding: EdgeInsets.all(16.0),
-          child: Image.network(_place.preferedActivities)),
+          child: getImage(_place.featuredImage)),
     );
 
     final welcome = Padding(
@@ -57,11 +84,13 @@ class _PlaceDetailBodyState extends State<PlaceDetailBody> {
       ),
     );
 
-    final lorem = Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Text(
-        _place.description,
-        style: TextStyle(fontSize: 16.0, color: Colors.white),
+    final lorem = Expanded(
+          child: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text(
+          _place.description,
+          style: TextStyle(fontSize: 16.0, color: Colors.white),
+        ),
       ),
     );
 
@@ -100,6 +129,37 @@ class _PlaceDetailBodyState extends State<PlaceDetailBody> {
         children: <Widget>[
           alucard,
           welcome,
+         new Row(
+           children: <Widget>[
+             new Padding(padding: EdgeInsets.fromLTRB(60.0, 0.0, 0.0, 0.0)),
+             new IconButton(icon: Icon(Icons.star), onPressed: (){setState(() {
+                            _rating = 1;
+                            rate(_rating);
+                          });
+                          
+                          
+                          }),
+             new IconButton(icon: Icon(Icons.star), onPressed: (){setState(() {
+                            _rating = 2;
+                          });
+                          rate(_rating);
+                          }),
+             new IconButton(icon: Icon(Icons.star), onPressed: (){setState(() {
+                            _rating = 3;
+                          });
+                          rate(_rating);}),
+             new IconButton(icon: Icon(Icons.star), onPressed: (){setState(() {
+                            _rating = 4;
+                          });
+                          rate(_rating);}),
+             new IconButton(icon: Icon(Icons.star), onPressed: (){setState(() {
+                            _rating = 5;
+                          });
+                          rate(_rating);})
+           ],
+           
+         ),
+         new Text(_rating != null ? _rating.toString() : ""),
           midbtn,
           lorem,
         ],

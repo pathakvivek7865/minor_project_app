@@ -153,7 +153,7 @@ class PlaceViewState extends State<PlaceView>{
                     placeState.name,
                     maxLines: 10,
                   ),
-                ),
+                ),/* 
                 Align(
                   alignment: Alignment.topLeft,
                   child: IconButton(
@@ -163,7 +163,7 @@ class PlaceViewState extends State<PlaceView>{
                     color:  Colors.redAccent,
                     onPressed: () {},
                   )
-                )
+                ) */
               ],
             ),
             tag: placeState.name,
