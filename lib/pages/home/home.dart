@@ -31,7 +31,7 @@ class PeopleCardViewState extends State<PlaceCardView> {
   }
 
   _getPlaceList() async {
-    final url = 'http://192.168.1.73:8090/places/';
+    final url = 'http://192.168.100.4:8090/places/';
     final httpClient = new HttpClient();
 
     try {
@@ -102,7 +102,7 @@ class PeopleCardViewState extends State<PlaceCardView> {
             //new Divider(),
             new Container(
               padding: const EdgeInsets.all(0.0),
-              child: new Image.network(place.preferedActivities),
+              child: new Image.network(place.featuredImage),
             ),
             new ButtonTheme.bar(
               // make buttons use the appropriate styles for cards

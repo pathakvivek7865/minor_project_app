@@ -46,7 +46,7 @@ class _PlaceDetailBodyState extends State<PlaceDetailBody> {
       tag: 'hero',
       child: Padding(
           padding: EdgeInsets.all(16.0),
-          child: Image.network(_place.preferedActivities)),
+          child: Image.network(_place.featuredImage)),
     );
 
     final welcome = Padding(

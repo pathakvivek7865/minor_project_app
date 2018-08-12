@@ -179,6 +179,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.5"
+  google_maps_flutter:
+    dependency: "direct main"
+    description:
+      path: "packages/google_maps_flutter"
+      ref: HEAD
+      resolved-ref: "99a2efadf212019519a3f2584e35b6b7325d00f3"
+      url: "git://github.com/flutter/plugins"
+    source: git
+    version: "0.0.1"
   graphs:
     dependency: transitive
     description:
@@ -536,4 +545,4 @@ packages:
     version: "2.1.13"
 sdks:
   dart: ">=2.0.0-dev.58 <=2.0.0-dev.58.0.flutter-f981f09760"
-  flutter: ">=0.1.4 <2.0.0"
+  flutter: ">=0.3.0 <2.0.0"

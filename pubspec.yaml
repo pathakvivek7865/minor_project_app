@@ -17,6 +17,11 @@ dependencies:
   http: ^0.11.3+16
   json_annotation: ^0.2.2
   geolocation: ^0.2.1
+  google_maps_flutter:
+   git:
+    url: git://github.com/flutter/plugins
+    path: packages/google_maps_flutter
+  
 
 
 dev_dependencies:
@@ -38,6 +43,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/alucard.jpg
+    - assets/logo.png
   fonts:
       - family: Nunito
         fonts:

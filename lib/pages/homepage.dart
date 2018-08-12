@@ -6,6 +6,7 @@ import 'package:touristguide/pages/login/login_page.dart';
 import 'package:touristguide/pages/search/search.dart';
 import 'package:touristguide/component/getImage.dart';
 import 'package:touristguide/pages/signup.dart';
+// import './login/index.dart';
 
 class MyHomePage extends StatefulWidget {
   // MyHomePage({Key key, this.pvalue}) : super(key: key);
@@ -67,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 48.0,
-        child: getImage("https://bit.ly/2OR2OhK"),
+        child: getImage('/assets/logo.png'),
       ),
     );
 
@@ -126,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       timeInSecForIos: 1);
                 },
                 child: new CircleAvatar(
-                  backgroundImage: new NetworkImage("https://bit.ly/2OR2OhK"),
+                  backgroundImage: new NetworkImage('/assets/logo.png'),
                 ),
               ),
               decoration: new BoxDecoration(
@@ -145,6 +146,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             new ListTile(
               title: new Text("Places"),
+              leading: new Icon(Icons.place),
+              onTap: () => Navigator.of(context).push(new MaterialPageRoute(
+                  builder: (BuildContext context) => new Home())),
+            ),
+            new ListTile(
+              title: new Text("test"),
               leading: new Icon(Icons.place),
               onTap: () => Navigator.of(context).push(new MaterialPageRoute(
                   builder: (BuildContext context) => new Home())),

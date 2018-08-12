@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     //print(basicAuth);
 
-    final url = "http://192.168.1.73:8090/login";
+    final url = "http://192.168.100.4:8090/login";
     try {
       final response = await http.get(url, headers: {
         HttpHeaders.AUTHORIZATION: basicAuth,
@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 48.0,
-        child: getImage("https://bit.ly/2OR2OhK"),
+        child: getImage('/assets/logo.png'),
       ),
     );
 
@@ -139,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Text('Log In', style: TextStyle(color: Colors.white)),
         ),
       ),
-    );
+    ); 
 
     final forgotLabel = FlatButton(
       child: Text(
