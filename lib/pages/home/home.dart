@@ -56,6 +56,7 @@ class PeopleCardViewState extends State<PlaceCardView> {
 
   Widget _buildPlaceList() {
     return new ListView.builder(
+      
      // padding: const EdgeInsets.all(5.0),
       itemCount: _place.length != null ? _place.length : 0,
       itemBuilder: (context, index) {

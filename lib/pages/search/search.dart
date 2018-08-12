@@ -33,7 +33,7 @@ class _SearchBarState extends State<SearchBar> {
     }
     setState(() => hasLoaded = false);
     http
-        .get('http://192.168.100.4:8090/places/')
+        .get('http://192.168.13.168:8090/places/')
         .then((res) => (res.body))
         .then(json.decode)
         .then((map) => map["places"])

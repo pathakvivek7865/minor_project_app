@@ -36,7 +36,7 @@ class UserProfileState extends State<UserProfile> {
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     //print(basicAuth);
 
-    final url = "http://192.168.1.73:8090/tourists/$tid";
+    final url = "http://192.168.13.168:8090/tourists/$tid";
     try {
       final response = await http.get(url, headers: {
         HttpHeaders.AUTHORIZATION: basicAuth,
@@ -89,8 +89,7 @@ class UserProfileState extends State<UserProfile> {
 
     final lorem = Padding(
       padding: EdgeInsets.all(8.0),
-      child: Text(
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit condimentum mauris id tempor. Praesent eu commodo lacus. Praesent eget mi sed libero eleifend tempor. Sed at fringilla ipsum. Duis malesuada feugiat urna vitae convallis. Aliquam eu libero arcu.',
+      child: Text(/* _tst['address'][0]['country'] != null ? _tst['address'][0]['country'].toString() :  */"Kathmandu",
         style: TextStyle(fontSize: 16.0, color: Colors.white),
       ),
     );
