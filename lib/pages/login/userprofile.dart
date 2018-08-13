@@ -36,7 +36,7 @@ class UserProfileState extends State<UserProfile> {
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     //print(basicAuth);
 
-    final url = "http://192.168.13.168:8090/tourists/$tid";
+    final url = "http://192.168.100.4:8090/tourists/$tid";
     try {
       final response = await http.get(url, headers: {
         HttpHeaders.AUTHORIZATION: basicAuth,

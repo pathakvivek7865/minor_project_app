@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
-import 'package:touristguide/component/getImage.dart';
+// import 'package:touristguide/component/getImage.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     //print(basicAuth);
 
-    final url = "http://192.168.13.168:8090/login";
+    final url = "http://192.168.100.4:8090/login";
     try {
       final response = await http.get(url, headers: {
         HttpHeaders.AUTHORIZATION: basicAuth,
@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 48.0,
-        child: getImage("https://bit.ly/2OR2OhK"),
+        child: Image.asset('/assets/logo.png'),
       ),
     );
 

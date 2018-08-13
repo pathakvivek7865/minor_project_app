@@ -16,7 +16,7 @@ class _SignupState extends State<Signup> {
   var _email, _password, _name, _lastName;
 
   Future _login() async {
-    var url = "http://192.168.13.168:8090/signup";
+    var url = "http://192.168.100.4:8090/signup";
     Map<dynamic, dynamic> data = {
       "email": "$_email",
       "password": "$_password",
@@ -47,7 +47,7 @@ class _SignupState extends State<Signup> {
           child: new Column(
             children: <Widget>[
             Padding(padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),),
-              getImage("https://bit.ly/2OR2OhK"),
+              getImage('/assets/logo.png'),
               new Text('Sign Up'),
             ],
           )),

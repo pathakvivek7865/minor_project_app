@@ -49,7 +49,7 @@ class _PlaceDetailBodyState extends State<PlaceDetailBody> {
   }
 
   Future rate(int rating) async {
-    var url = "http://localhost:8090/rating";
+    var url = "http://192.168.100.4:8090/rating";
     Map<String, dynamic> data = {
       "userId": 3,
       "placeId": _place,
