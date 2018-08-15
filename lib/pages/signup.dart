@@ -46,7 +46,7 @@ class _SignupState extends State<Signup> {
           radius: 40.0,
           child: new Column(
             children: <Widget>[
-              getImage('assets/logo.png'),
+              getImage("https://bit.ly/2Bc1FhI"),
               new Text('Sign Up'),
             ],
           )),

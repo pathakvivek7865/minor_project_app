@@ -4,19 +4,17 @@ description: A new Flutter project.
 dependencies:
   flutter:
     sdk: flutter
+  shared_preferences: ^0.4.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   fluttertoast: ^2.0.7
-  sqflite: any
   path_provider: "^0.3.1"
   rxdart: ^0.16.1
   cupertino_icons: ^0.1.2
   material_search: ^0.2.7
   oauth2: ^1.2.1
   http: ^0.11.3+16
-  json_annotation: ^0.2.2
-  geolocation: ^0.2.1
   google_maps_flutter:
    git:
     url: git://github.com/flutter/plugins
@@ -43,7 +41,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/alucard.jpg
-    - assets/logo.png
   fonts:
       - family: Nunito
         fonts:

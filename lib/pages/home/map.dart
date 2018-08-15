@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:google_maps_flutter/src/controller.dart';
 
 class MapsDemo extends StatelessWidget {
   MapsDemo(this.mapWidget, this.controller);
@@ -10,14 +11,15 @@ class MapsDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GoogleMapController.init();
-  final GoogleMapOverlayController controller =
-      GoogleMapOverlayController.fromSize(width: 300.0, height: 200.0);
-  final Widget mapWidget = GoogleMapOverlay(controller: controller);
-    navigatorObservers: <NavigatorObserver>[controller.overlayController];
+    final GoogleMapOverlayController controller =
+        GoogleMapOverlayController.fromSize(width: 300.0, height: 200.0);
+    final Widget mapWidget = GoogleMapOverlay(controller: controller);
     new Scaffold(
       appBar: AppBar(title: const Text('Google Maps demo')),
       body: MapsDemo(mapWidget, controller.mapController),
     );
+    navigatorObservers:
+    <NavigatorObserver>[controller.overlayController];
     return Padding(
       padding: EdgeInsets.all(15.0),
       child: Column(

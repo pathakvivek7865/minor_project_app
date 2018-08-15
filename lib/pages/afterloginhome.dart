@@ -134,7 +134,7 @@ class _AfterLoginHomeState extends State<AfterLoginHome> {
                       timeInSecForIos: 1);
                 },
                 child: new CircleAvatar(
-                  backgroundImage: new NetworkImage('/assets/logo.png'),
+                  backgroundImage: new NetworkImage("https://bit.ly/2Bc1FhI"),
                 ),
               ),
               decoration: new BoxDecoration(

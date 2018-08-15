@@ -5,8 +5,9 @@ import 'package:touristguide/pages/login/userprofile.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-
 import 'package:touristguide/component/getImage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
@@ -16,6 +17,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // var _unctrl = new TextEditingController();
+  SharedPreferences values;
   var _username;
   String tid;
   var _password;
@@ -25,13 +27,25 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    init();
+  }
+
+  void init() async{
+    values = await SharedPreferences.getInstance();
+    _username = values.getString('uname') ?? "";
+    _password = values.getString('pword') ?? "";
+    setState(() {
+          _username;
+          _password;
+        });
   }
 
   Future<Null> _fetchData() async {
     setState(() {
       _loginStatus = null;
     });
-
+    values.setString('uname', _username);
+    values.setString('pword', _password);
     String username = _username;
     String password = _password;
     String basicAuth =
@@ -85,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 48.0,
-        child: getImage('/assets/logo.png'),
+        child: getImage("https://bit.ly/2Bc1FhI"),
       ),
     );
 
@@ -94,6 +108,7 @@ class _LoginPageState extends State<LoginPage> {
       autofocus: true,
       decoration: InputDecoration(
         hintText: 'Email',
+        icon: new Icon(Icons.email),
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
@@ -104,10 +119,10 @@ class _LoginPageState extends State<LoginPage> {
 
     final password = new TextField(
       obscureText: true,
-      keyboardType: TextInputType.emailAddress,
       autofocus: true,
       decoration: InputDecoration(
         hintText: 'Password',
+        icon: new Icon(Icons.vpn_key),
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
@@ -133,6 +148,11 @@ class _LoginPageState extends State<LoginPage> {
                 builder: (BuildContext context) => new UserProfile(uname: tid),
               );
               Navigator.of(context).push(route);
+            }
+            else{
+              Scaffold
+                      .of(context)
+                      .showSnackBar(SnackBar(content: Text('Username or Password is wrong')));
             }
           },
           color: Colors.lightBlueAccent,

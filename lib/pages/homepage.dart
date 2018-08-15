@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 48.0,
-        child: getImage('/assets/logo.png'),
+        child: getImage("https://bit.ly/2Bc1FhI"),
       ),
     );
 
@@ -127,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       timeInSecForIos: 1);
                 },
                 child: new CircleAvatar(
-                  backgroundImage: new NetworkImage('/assets/logo.png'),
+                  backgroundImage: new NetworkImage("https://bit.ly/2Bc1FhI"),
                 ),
               ),
               decoration: new BoxDecoration(
