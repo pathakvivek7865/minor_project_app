@@ -6,6 +6,8 @@ import 'package:touristguide/pages/login/login_page.dart';
 import 'package:touristguide/pages/search/search.dart';
 import 'package:touristguide/component/getImage.dart';
 import 'package:touristguide/pages/signup.dart';
+import 'package:touristguide/pages/my_maps.dart';
+
 
 class MyHomePage extends StatefulWidget {
   // MyHomePage({Key key, this.pvalue}) : super(key: key);
@@ -18,10 +20,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
   final List<Widget> _children = [new Home(), new SearchBar()];
 
-  @override
-  void initState() {
-    super.initState();
-  }
+
+  
 /* 
   _fetchData(String tid) async {
     String username = 'beingbivek@gmail.com';
@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 48.0,
-        child: getImage("https://bit.ly/2OR2OhK"),
+        child: getImage("https://bit.ly/2MNRIZl"),
       ),
     );
 
@@ -126,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       timeInSecForIos: 1);
                 },
                 child: new CircleAvatar(
-                  backgroundImage: new NetworkImage("https://bit.ly/2OR2OhK"),
+                  backgroundImage: new NetworkImage("https://bit.ly/2MNRIZl"),
                 ),
               ),
               decoration: new BoxDecoration(
@@ -164,6 +164,17 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       appBar: new AppBar(
         title: new Text("ITG"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.map),
+            onPressed: () {
+               Navigator.push(context,
+              new MaterialPageRoute(
+                builder: (context) => MyMap()
+              )); 
+            },
+          )
+        ],
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: new BottomNavigationBar(

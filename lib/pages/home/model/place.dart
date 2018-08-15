@@ -8,10 +8,12 @@ class Place extends Object with _$PlaceSerializerMixin {
   final int id;
   final String name;
   final String address;
-  final description;
+  final String description;
+  final String established;
+  final String preferedActivities;
   final String featuredImage;
   
-  Place(this.id,this.name,this.address, this.featuredImage,this.description);
+  Place(this.id,this.name,this.address,this.description,this.preferedActivities,this.established, this.featuredImage);
 
   factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
 }

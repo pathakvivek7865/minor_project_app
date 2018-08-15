@@ -16,7 +16,11 @@ dependencies:
   oauth2: ^1.2.1
   http: ^0.11.3+16
   json_annotation: ^0.2.2
-  geolocation: ^0.2.1
+  #geolocation: ^0.2.1
+  google_maps_flutter:
+    git:
+      url: git://github.com/flutter/plugins
+      path: packages/google_maps_flutter
 
 
 dev_dependencies:

@@ -10,21 +10,28 @@ Place _$PlaceFromJson(Map<String, dynamic> json) => new Place(
     json['id'] as int,
     json['name'] as String,
     json['address'] as String,
+    json['description'] as String,
+    json['established'] as String,
+    json['preferedActivities'] as String,
     json['featuredImage'] as String,
-    json['description'] as String);
+    );
 
 abstract class _$PlaceSerializerMixin {
   int get id;
   String get name;
   String get address;
-  String get featuredImage;
   dynamic get description;
+  String get established;
+  String get preferedActivities;
+  String get featuredImage;
   
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id':id,
         'name': name,
         'address': address,
         'description': description,
+        'established': established,
+        'preferedActivities':preferedActivities,
         'featuredImage': featuredImage
       };
 }

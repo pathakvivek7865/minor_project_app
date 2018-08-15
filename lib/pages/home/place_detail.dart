@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 import 'package:touristguide/pages/home/model/place.dart';
-import 'package:touristguide/component/getImage.dart';
+//import 'package:touristguide/component/getImage.dart';
+import 'package:touristguide/pages/my_maps.dart';
 import 'dart:async';
 
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
-import 'package:touristguide/pages/home/map.dart';
+//import 'package:touristguide/pages/home/map.dart';
 
 class PlaceDetail extends StatelessWidget {
   final Place _place;
@@ -22,6 +23,7 @@ class PlaceDetail extends StatelessWidget {
 }
 
 class PlaceDetailBody extends StatefulWidget {
+  
   final Place _place;
   PlaceDetailBody(this._place);
 
@@ -69,20 +71,20 @@ class _PlaceDetailBodyState extends State<PlaceDetailBody> {
 
   @override
   Widget build(BuildContext context) {
-    final alucard = Hero(
+    /* final alucard = Hero(
       tag: 'hero',
       child: Padding(
           padding: EdgeInsets.all(16.0),
           child: getImage(_place.featuredImage)),
-    );
+    ); */
 
-    final welcome = Padding(
+    /* final welcome = Padding(
       padding: EdgeInsets.all(8.0),
       child: Text(
-        _place.name /* ${widget.uname} */,
+        _place.name  ${widget.uname} ,
         style: TextStyle(fontSize: 28.0, color: Colors.white),
       ),
-    );
+    ); */
 
     final lorem = Expanded(
           child: Padding(
@@ -104,11 +106,11 @@ class _PlaceDetailBodyState extends State<PlaceDetailBody> {
           minWidth: 200.0,
           height: 42.0,
         onPressed: () {
-          var route = new MaterialPageRoute(
+           var route = new MaterialPageRoute(
               builder: (BuildContext context) =>
-                  new PlaceMap(),
+                  new MyMap(),
             );
-            Navigator.of(context).push(route);
+            Navigator.of(context).push(route); 
         },
           color: Colors.lightBlueAccent,
           child: Text('Map', style: TextStyle(color: Colors.white)),
@@ -127,8 +129,8 @@ class _PlaceDetailBodyState extends State<PlaceDetailBody> {
       ),
       child: Column(
         children: <Widget>[
-          alucard,
-          welcome,
+          //alucard,
+          //welcome,
          new Row(
            children: <Widget>[
              new Padding(padding: EdgeInsets.fromLTRB(60.0, 0.0, 0.0, 0.0)),
@@ -166,8 +168,55 @@ class _PlaceDetailBodyState extends State<PlaceDetailBody> {
       ),
     );
 
-    return Scaffold(
-      body: body,
-    );
+     return Scaffold(
+       body: new NestedScrollView(
+         controller: _scrollViewController,
+         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+           return <Widget>[
+            SliverAppBar(
+           // title: Text(_place.name != null ? _place.name :"Loading.."), // This is the title in the app bar.
+            pinned: true,
+            expandedHeight: 250.0,
+            flexibleSpace: FlexibleSpaceBar(
+                    centerTitle: true,
+                    title: Text(_place.name != null ? _place.name :"Loading..",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                        )),
+                    background: Image.network(
+                      _place.featuredImage,
+                      fit: BoxFit.cover,
+                    )),
+            )
+          ];
+         },
+         body: body,
+       ),
+       /*  body: body: new NestedScrollView(
+        controller: _scrollController,
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            new SliverList(
+              delegate: new SliverChildBuilderDelegate(
+                _buildTile,
+                childCount: 12,
+              ),
+            ),
+            new SliverPersistentHeader(
+              pinned: true,
+              delegate: new TestTabBarDelegate(controller: _tabController),
+            ),
+          ];
+        },
+        body: new TestHomePageBody(
+          tabController: _tabController,
+          scrollController: _scrollController,
+        ),
+      ),,
+        ),*/
+    );  
+
+
   }
 }
